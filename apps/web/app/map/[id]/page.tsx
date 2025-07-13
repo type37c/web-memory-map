@@ -2,15 +2,16 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import Map from '@/components/Map';
 import { useMap } from '@/hooks/useMap';
+import { Node } from '@/types';
 
 export default function MapPage() {
   const params = useParams();
   const mapId = params.id as string;
   const { map, loading, error, updateNodePosition, addNode } = useMap(mapId);
-  const [selectedNode, setSelectedNode] = useState<any>(null);
-  const [isAddingNode, setIsAddingNode] = useState(false);
+  const [selectedNode, setSelectedNode] = useState<Node | null>(null);
 
   if (loading) {
     return (
@@ -56,7 +57,7 @@ export default function MapPage() {
           <div>
             <h1 className="text-2xl font-bold">{map.name}</h1>
             <p className="text-gray-600 mt-1">
-              {map.is_public ? 'Public' : 'Private'} • {map.nodes.length} sites
+              {map.isPublic ? 'Public' : 'Private'} • {map.nodes.length} sites
             </p>
           </div>
           <div className="flex gap-4">
@@ -101,7 +102,7 @@ export default function MapPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 {selectedNode.favicon && (
-                  <img src={selectedNode.favicon} alt="" className="w-6 h-6" />
+                  <Image src={selectedNode.favicon} alt="" width={24} height={24} className="w-6 h-6" />
                 )}
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium truncate">{selectedNode.title}</h3>

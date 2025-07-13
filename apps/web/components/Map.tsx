@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { MapData, Node, Edge } from '@/types';
+import { MapData, Node } from '@/types';
 
 interface MapProps {
   data: MapData;
@@ -21,8 +21,6 @@ export default function Map({ data, editable = false, onNodeMove, onNodeClick }:
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    const width = dimensions.width;
-    const height = dimensions.height;
 
     // Create zoom behavior
     const zoom = d3.zoom<SVGSVGElement, unknown>()

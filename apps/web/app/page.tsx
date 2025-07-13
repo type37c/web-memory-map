@@ -34,7 +34,7 @@ export default function Home() {
             <div className="bg-white p-6 rounded-lg shadow-sm">
               <h3 className="font-semibold text-lg mb-2">🌍 Share & Explore</h3>
               <p className="text-gray-600">
-                Make your maps public to share knowledge, or explore others' curated collections
+                Make your maps public to share knowledge, or explore others&apos; curated collections
               </p>
             </div>
           </div>

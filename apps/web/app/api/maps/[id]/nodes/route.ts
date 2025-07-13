@@ -3,8 +3,9 @@ import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const supabase = await createSupabaseServerClient()
   const node = await request.json()
 
@@ -12,7 +13,7 @@ export async function POST(
     .from('nodes')
     .insert({
       ...node,
-      map_id: params.id
+      map_id: id
     })
     .select()
     .single()
@@ -26,8 +27,9 @@ export async function POST(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   const supabase = await createSupabaseServerClient()
   const { nodeId, ...updates } = await request.json()
 
@@ -35,7 +37,7 @@ export async function PUT(
     .from('nodes')
     .update(updates)
     .eq('id', nodeId)
-    .eq('map_id', params.id)
+    .eq('map_id', id)
     .select()
     .single()
 
