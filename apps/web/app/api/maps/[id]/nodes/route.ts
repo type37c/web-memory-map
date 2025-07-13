@@ -1,0 +1,47 @@
+import { NextResponse } from 'next/server'
+import { createSupabaseServerClient } from '@/lib/supabase-server'
+
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const supabase = await createSupabaseServerClient()
+  const node = await request.json()
+
+  const { data, error } = await supabase
+    .from('nodes')
+    .insert({
+      ...node,
+      map_id: params.id
+    })
+    .select()
+    .single()
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json({ node: data })
+}
+
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const supabase = await createSupabaseServerClient()
+  const { nodeId, ...updates } = await request.json()
+
+  const { data, error } = await supabase
+    .from('nodes')
+    .update(updates)
+    .eq('id', nodeId)
+    .eq('map_id', params.id)
+    .select()
+    .single()
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  return NextResponse.json({ node: data })
+}

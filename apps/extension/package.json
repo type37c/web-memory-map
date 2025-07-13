@@ -1,0 +1,11 @@
+{
+  "name": "@web-memory-map/extension",
+  "version": "0.1.0",
+  "description": "Chrome extension for Web Memory Map",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js --watch"
+  },
+  "license": "MIT"
+}
