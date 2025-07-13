@@ -8,6 +8,7 @@
     "url": "https://github.com/type37c/web-memory-map.git"
   },
   "license": "MIT",
+  "packageManager": "npm@10.2.0",
   "workspaces": [
     "apps/*",
     "packages/*"
